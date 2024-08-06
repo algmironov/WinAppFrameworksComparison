@@ -1,0 +1,28 @@
+﻿<!-- MainWindow.xaml -->
+<Window x:Class="TicTacToeWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Tic-Tac-Toe WPF" Height="450" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Button x:Name="Button_0_0" Grid.Row="0" Grid.Column="0" Click="Button_Click" FontSize="72"/>
+        <Button x:Name="Button_0_1" Grid.Row="0" Grid.Column="1" Click="Button_Click" FontSize="72"/>
+        <Button x:Name="Button_0_2" Grid.Row="0" Grid.Column="2" Click="Button_Click" FontSize="72"/>
+        <Button x:Name="Button_1_0" Grid.Row="1" Grid.Column="0" Click="Button_Click" FontSize="72"/>
+        <Button x:Name="Button_1_1" Grid.Row="1" Grid.Column="1" Click="Button_Click" FontSize="72"/>
+        <Button x:Name="Button_1_2" Grid.Row="1" Grid.Column="2" Click="Button_Click" FontSize="72"/>
+        <Button x:Name="Button_2_0" Grid.Row="2" Grid.Column="0" Click="Button_Click" FontSize="72"/>
+        <Button x:Name="Button_2_1" Grid.Row="2" Grid.Column="1" Click="Button_Click" FontSize="72"/>
+        <Button x:Name="Button_2_2" Grid.Row="2" Grid.Column="2" Click="Button_Click" FontSize="72"/>
+    </Grid>
+</Window>
