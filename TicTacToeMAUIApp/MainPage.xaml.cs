@@ -1,55 +1,35 @@
-namespace TicTacToeWinForms
+п»їnamespace TicTacToeMAUIApp
 {
-    public partial class Form1 : Form
+    public partial class MainPage : ContentPage
     {
-        private Button[,] buttons = new Button[3, 3];
         private char currentPlayer = 'X';
-        private TableLayoutPanel tableLayoutPanel;
+        private Button[,] buttons;
 
-        public Form1()
+        public MainPage()
         {
             InitializeComponent();
-            InitializeGame();
-            CenterToScreen();
+            InitializeButtons();
         }
 
-        private void InitializeGame()
+        private void InitializeButtons()
         {
-            // Создаем и настраиваем TableLayoutPanel
-            tableLayoutPanel = new TableLayoutPanel
+            buttons = new Button[3, 3];
+            var grid = this.Content as Grid;
+            if (grid != null)
             {
-                Dock = DockStyle.Fill,
-                RowCount = 3,
-                ColumnCount = 3
-            };
-
-            // Настраиваем строки и столбцы
-            for (int i = 0; i < 3; i++)
-            {
-                tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 33.33F));
-                tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
-            }
-
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
+                foreach (var child in grid.Children.OfType<Button>())
                 {
-                    buttons[i, j] = new Button
+                    int row = Grid.GetRow(child);
+                    int col = Grid.GetColumn(child);
+                    if (row < 3 && col < 3)
                     {
-                        Dock = DockStyle.Fill,
-                        Font = new Font("Arial", 36),
-                        TabIndex = i * 3 + j
-                    };
-                    buttons[i, j].Click += Button_Click;
-                    tableLayoutPanel.Controls.Add(buttons[i, j], j, i);
+                        buttons[row, col] = child;
+                    }
                 }
             }
-
-            this.Controls.Add(tableLayoutPanel);
-            this.MinimumSize = new Size(300, 300); // Устанавливаем минимальный размер формы
         }
 
-        private void Button_Click(object sender, EventArgs e)
+        private void OnButtonClicked(object sender, EventArgs e)
         {
             Button clickedButton = (Button)sender;
             if (string.IsNullOrEmpty(clickedButton.Text))
@@ -57,12 +37,12 @@ namespace TicTacToeWinForms
                 clickedButton.Text = currentPlayer.ToString();
                 if (CheckForWinner())
                 {
-                    MessageBox.Show($"Player {currentPlayer} wins!");
+                    DisplayAlert("Game Over", $"Player {currentPlayer} wins!", "OK");
                     ResetGame();
                 }
                 else if (IsBoardFull())
                 {
-                    MessageBox.Show("It's a draw!");
+                    DisplayAlert("Game Over", "It's a draw!", "OK");
                     ResetGame();
                 }
                 else
@@ -74,7 +54,7 @@ namespace TicTacToeWinForms
 
         private bool CheckForWinner()
         {
-            // Проверка по горизонтали и вертикали
+            // РџСЂРѕРІРµСЂРєР° РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё Рё РІРµСЂС‚РёРєР°Р»Рё
             for (int i = 0; i < 3; i++)
             {
                 if (buttons[i, 0].Text == currentPlayer.ToString() &&
@@ -88,7 +68,7 @@ namespace TicTacToeWinForms
                     return true;
             }
 
-            // Проверка по диагоналям
+            // РџСЂРѕРІРµСЂРєР° РїРѕ РґРёР°РіРѕРЅР°Р»СЏРј
             if (buttons[0, 0].Text == currentPlayer.ToString() &&
                 buttons[1, 1].Text == currentPlayer.ToString() &&
                 buttons[2, 2].Text == currentPlayer.ToString())
@@ -121,4 +101,5 @@ namespace TicTacToeWinForms
             currentPlayer = 'X';
         }
     }
+
 }
